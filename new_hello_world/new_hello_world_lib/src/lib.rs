@@ -305,4 +305,22 @@ pub fn run7(){
     // Compare above to:
     // explicitly indicating that want a vector of strnigs
     let mut v2: Vec<&str> = Vec::new();
+
+    // let mut y2: &str = v2.pop().expect(msg: "Do not call pop on an empty Vector");
+
+    // Exercise: How  can you ensure your program does not panic when you...
+    let y2: &str = match v2.pop() {
+        Some(val: &str) => val,
+        None => "Empty vector",
+    };
+    println!("{}", y2);
+
+    // let's use ? for Option
+    let mut v3: Vec<i32> = vec![1,2,3];
+
+    let mut plus_one: impl FnMut() -> Option<i32> = || -> Option<i32>{
+        Some(v3.pop()? + 1);
+    }
+
+    println!("Plus one {}", plus_one().unwrap());
 }
